@@ -25,3 +25,7 @@ spring:
 
 management:
   endpoints.web.exposure.include: "*"
+
+logging:
+  level:
+    com.example.configserver: DEBUG
