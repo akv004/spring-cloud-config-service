@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    config:
+      server:
+        jdbc:
+          sql: SELECT PROPERTY_KEY, PROPERTY_VALUE FROM CONFIG_PROPERTIES WHERE APPLICATION=? AND PROFILE=? AND LABEL=?
+          order: 1
+    azure:
+      profile:
+        tenant-id: ${AZURE_TENANT_ID}
+        client-id: ${AZURE_CLIENT_ID}
+        client-secret: ${AZURE_CLIENT_SECRET}
+      keyvault:
+        secret:
+          property-sources[0]:
+            endpoint: ${AZURE_KEY_VAULT_ENDPOINT}
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DB}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+management:
+  endpoints.web.exposure.include: "*"
